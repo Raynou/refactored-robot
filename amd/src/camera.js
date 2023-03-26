@@ -10,6 +10,23 @@ function save_image(video, canvas) {
     // window.alert(image_data_url);
 }
 
+/**
+ * Saves the image and ...
+ * @param {video} video - The camera feedback
+ * @returns Nothing
+ */
+function save_image_file(video) {
+    // navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then((stream) => {
+    //     video.srcObject = stream;
+    //     video.play();
+    // }).catch((error) => window.alert(error));
+    createImageBitmap(video).then((bitmap) => {
+        storage.push(bitmap)
+    })
+    // let image_data_url = canvas.toDataURL('image/jpeg');
+    // window.alert(image_data_url);
+}
+
 export const init = (timer) => {
     let video = document.querySelector("#camera");
     let canvas = document.querySelector("#canvas");
