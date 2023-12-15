@@ -6,25 +6,23 @@
  */
 function save_image(video, canvas) {
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    // let image_data_url = canvas.toDataURL('image/jpeg');
-    // window.alert(image_data_url);
 }
 
 /**
- * Saves the image and ...
- * @param {video} video - The camera feedback
- * @returns Nothing
+ * Get the current time value from local storage
+ * @returns {number} A number that represents time.
  */
-function save_image_file(video) {
-    // navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then((stream) => {
-    //     video.srcObject = stream;
-    //     video.play();
-    // }).catch((error) => window.alert(error));
-    createImageBitmap(video).then((bitmap) => {
-        storage.push(bitmap)
-    })
-    // let image_data_url = canvas.toDataURL('image/jpeg');
-    // window.alert(image_data_url);
+function getFromLocalStorage() {
+    return parseInt(localStorage.getItem("timeTranscurred"));
+}
+
+/**
+ * Put a value of the local storage.
+ * @param {number} seconds A number which represents the time transcurred in the timer
+ */
+function pushToLocalStorage(seconds) {
+    console.log(seconds);
+    localStorage.setItem("timeTranscurred", seconds.toString());
 }
 
 export const init = (timer) => {
@@ -41,9 +39,16 @@ export const init = (timer) => {
         save_image(video, canvas);
     });
 
-    setInterval(save_image, timer, video, canvas);
-    // window.alert("The init function was called");
-    // video.srcObject = stream;
-    // canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    // let image_data_url = canvas.toDataURL('image/jpeg');
+    if(getFromLocalStorage() === null || isNaN(getFromLocalStorage())) {
+        pushToLocalStorage(0);
+    }
+    setInterval(() => {
+        if(getFromLocalStorage()  === timer/1000) {
+            save_image(video, canvas);
+            pushToLocalStorage(0);
+        }else {
+            const aux = getFromLocalStorage();
+            pushToLocalStorage(aux+1);
+        }
+    }, 1000);
 };

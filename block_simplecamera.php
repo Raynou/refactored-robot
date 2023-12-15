@@ -17,7 +17,7 @@ class block_simplecamera extends block_base {
 "<button id='save_button'>Hazme Click</button><br/>";
         $this->content->footer = "Footer here...";
 
-        $cameraperiod = 20000;
+        $cameraperiod = 10000;
         if (! empty($this->config->period)) {
             $cameraperiod = $this->config->period;
         }
