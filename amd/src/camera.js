@@ -2,32 +2,48 @@
  * Saves the image and ...
  * @param {video} video - The camera feedback
  * @param {canvas} canvas - The canvas where the image will be temporally saved
+ * @param {string} title The title of the page where the photo is taken
+ * @param {number} userId The id of the user
  * @returns Nothing
  */
-function save_image(video, canvas) {
+function save_image(video, canvas, title, userId) {
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    // let image_data_url = canvas.toDataURL('image/jpeg');
-    // window.alert(image_data_url);
+    const url = "http://www.localhost/moodle/blocks/simplecamera/api.php";
+    const mockBody = {
+        photo: canvas.toDataURL(),
+        page:  title,
+        userId: userId
+    };
+
+    console.log(mockBody);
+
+    fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-type":"application/json"
+        },
+        body: JSON.stringify(mockBody)
+    });
 }
 
 /**
- * Saves the image and ...
- * @param {video} video - The camera feedback
- * @returns Nothing
+ * Get the current time value from local storage
+ * @returns {number} A number that represents time.
  */
-function save_image_file(video) {
-    // navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then((stream) => {
-    //     video.srcObject = stream;
-    //     video.play();
-    // }).catch((error) => window.alert(error));
-    createImageBitmap(video).then((bitmap) => {
-        storage.push(bitmap)
-    })
-    // let image_data_url = canvas.toDataURL('image/jpeg');
-    // window.alert(image_data_url);
+function getFromLocalStorage() {
+    return parseInt(localStorage.getItem("timeTranscurred"));
 }
 
-export const init = (timer) => {
+/**
+ * Put a value of the local storage.
+ * @param {number} seconds A number which represents the time transcurred in the timer
+ */
+function pushToLocalStorage(seconds) {
+    localStorage.setItem("timeTranscurred", seconds.toString());
+}
+
+export const init = (timer, title, id) => {
     let video = document.querySelector("#camera");
     let canvas = document.querySelector("#canvas");
     let save_button = document.querySelector("#save_button");
@@ -41,9 +57,16 @@ export const init = (timer) => {
         save_image(video, canvas);
     });
 
-    setInterval(save_image, timer, video, canvas);
-    // window.alert("The init function was called");
-    // video.srcObject = stream;
-    // canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    // let image_data_url = canvas.toDataURL('image/jpeg');
+    if(getFromLocalStorage() === null || isNaN(getFromLocalStorage())) {
+        pushToLocalStorage(0);
+    }
+    setInterval(() => {
+        if(getFromLocalStorage()  === timer/1000) {
+            save_image(video, canvas, title, id);
+            pushToLocalStorage(0);
+        }else {
+            const aux = getFromLocalStorage();
+            pushToLocalStorage(aux+1);
+        }
+    }, 1000);
 };
