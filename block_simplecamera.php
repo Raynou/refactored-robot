@@ -22,9 +22,15 @@ class block_simplecamera extends block_base {
             $cameraperiod = $this->config->period;
         }
 
+        require_once(__DIR__ . '/../../config.php');
+        global $USER;
 
+        $userid = $USER->id;
+        $title = $this->page->title;
         $this->page->requires->js_call_amd('block_simplecamera/camera', 'init', [
-            $cameraperiod
+            $cameraperiod,
+            $title,
+            $userid
         ]);
 
         return $this->content;
