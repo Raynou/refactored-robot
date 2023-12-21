@@ -2,6 +2,15 @@
 
 Plugin de bloque para Moodle que utiliza el servicio de `Amazon Rekognition` para hacer análisis de sentimientos de estudiantes en Moodle.
 
+1. [Introducción](#introducción)
+2. [Instalación del plugin](#instalación-del-plugin)
+3. [Instalación de librerías PHP](#instalación-de-librerías-php)
+4. [Buildear los cambios el código Javascript en la carpeta amd](#buildear-los-cambios-al-código-javascript-en-la-carpeta-amd)
+      1. [Instalar grunt](#instalar-grunt)
+      2. [Buildear el código](#buildear-el-código)
+5. [Configuración de las variables de entorno](#configuración-de-las-variables-de-entorno)
+6. [Ejecutar proyecto con Docker](#ejecutar-proyecto-con-docker)
+
 ## Instalación del plugin
 
 En su instalación de moodle, dentro de la carpeta `blocks` ejecute el siguiente comando.
@@ -69,3 +78,19 @@ DB_NAME = moodle # Este es el nombre de la db de Moodle
 DB_USER = your-user
 DB_PASSWORD = your-password
 ```
+
+## Ejecutar proyecto con Docker.
+
+Sí desea usar docker para desarrollar y probar el plugin puede hacerlo ejecutando el siguiente comando:
+
+```bash
+docker compose up
+```
+
+> [!WARNING]
+> Los contenedores de Docker creados con este comando están pensados para ser usados en ambiente de desarrollo, no en producción.
+
+Una vez termine el proceso de creación de los contenedores, puede acceda a `localhost\moodle` en su navegador para hacer el proceso de instalación (este paso solo se hace la primera vez que se crean los contenedores).
+
+> [!IMPORTANT]
+> Al momento de ingresar el host de la base de datos, en lugar de colocar `localhost` coloque el nombre del contenedor de la base de datos, que por defecto es `plugindb`.
