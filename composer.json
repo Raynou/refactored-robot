@@ -1,5 +1,8 @@
 {
     "require": {
         "aws-project/stormwind": "dev-dev"
+    },
+    "config": {
+	"platform-check": false
     }
 }

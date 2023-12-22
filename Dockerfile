@@ -1,3 +1,5 @@
+FROM node:16 AS node
+FROM composer
 FROM php:8.0-apache
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
@@ -6,8 +8,25 @@ RUN apt-get update && \
     apt-get install -y git \
     libxml2-dev \
     libpng-dev \
+    watchman \
     libonig-dev && \
     git clone -b MOODLE_402_STABLE --depth 1 git://git.moodle.org/moodle.git /var/www/html/moodle
+
+# Install node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
+
+# Install composer
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
+
+
+# Install grunt, grunt-cli and npx
+WORKDIR /var/www/html/moodle/
+
+RUN npm i
+RUN npm i -g grunt-cli
+RUN npm i -g npx
 
 # Grant permissions to docker-php-extension-installer
 RUN chmod +x /usr/local/bin/install-php-extensions
@@ -64,5 +83,7 @@ RUN {\
     echo 'php_admin_flag[log_errors] = on'; \
     echo 'php_flag[display_errors] = off'; \
 }>/usr/local/etc/php/conf.d/custom.ini
+
+WORKDIR /var/www/html/moodle/blocks/simplecamera
 
 EXPOSE 3000
