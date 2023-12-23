@@ -9,7 +9,16 @@
 function save_image(video, canvas, title, userId) {
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     const date = new Date();
-    const time = `${date.getHours()}:${date.getMinutes()}`;
+
+    const formatMinutes = (minutes) => {
+        const stringMinutes = minutes.toString();
+        if(stringMinutes.length == 1) {
+            return "0" + stringMinutes;
+        }
+        return stringMinutes;
+    };
+
+    const time = `${date.getHours()}:${formatMinutes(date.getMinutes())}`;
     const url = "http://www.localhost/moodle/blocks/simplecamera/api.php";
     const mockBody = {
         photo: canvas.toDataURL(),
