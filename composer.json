@@ -3,6 +3,6 @@
         "aws-project/stormwind": "dev-dev"
     },
     "config": {
-	"platform-check": false
+        "platform-check": false
     }
 }

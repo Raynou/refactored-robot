@@ -31,6 +31,8 @@ DB_HOST = your-host
 DB_NAME = moodle # Este es el nombre de la db de Moodle
 DB_USER = your-user
 DB_PASSWORD = your-password
+MOODLE_ADMIN_USER=your-admin-user
+MOODLE_ADMIN_PASS=your-admin-password
 ```
 ## Instalación manual
 
@@ -98,6 +100,15 @@ Una vez termine el proceso de creación de los contenedores, puede acceda a `loc
 
 > [!IMPORTANT]
 > Al momento de ingresar el host de la base de datos, en lugar de colocar `localhost` coloque el nombre del contenedor de la base de datos, que por defecto es `plugindb`.
+
+### Instalación automática de Moodle
+
+```bash
+docker exec -it simplecamera-plugin-1 ./setup.sh
+```
+
+> [!TIP]
+> Este comando también instala las dependencias de PHP en la carpeta del proyecto, por lo que ya no es necesario que las ejecutes manualmente.
 
 ### Instalación de librerías PHP en el contenedor
 
