@@ -9,6 +9,7 @@ Plugin de bloque para Moodle que utiliza el servicio de `Amazon Rekognition` par
             - [Instalación de librerías PHP](#instalación-de-librerías-php)
             - [Instalar Grunt](#instalar-grunt)
       3. [Instalación con Docker](#instalación-con-docker)
+            - [Instalación automática de Moodle](#instalación-automática-de-moodle)
             - [Instalación de librerías PHP en el contenedor](#instalación-de-librerías-php-en-el-contenedor)
             - [Uso de Grunt en el contenedor](#uso-de-grunt-en-el-contenedor)
 
