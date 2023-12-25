@@ -111,6 +111,8 @@ docker exec -it simplecamera-plugin-1 ./setup.sh
 > [!TIP]
 > Este comando también instala las dependencias de PHP en la carpeta del proyecto, por lo que ya no es necesario que las ejecutes manualmente.
 
+Sí este comando llega a fallar, siempre es posible instalar Moodle mediante su instalador web, para ello vaya a `localhost/moodle` en su navegador y rellene los datos que se le solicitan. Recuerde usar el nombre `plugindb` o el nombre que haya elegido para el contenedor de base de datos cuando le pidan el `database host`.
+
 ### Instalación de librerías PHP en el contenedor
 
 Para instalar las dependencias de PHP puede ejecutar los siguientes comandos:
