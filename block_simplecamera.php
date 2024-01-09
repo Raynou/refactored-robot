@@ -44,6 +44,29 @@ class block_simplecamera extends block_base {
                 $this->title = $this->config->title;
             }
         }
+
+        if(!file_exists("./.env")) {
+
+            // $file = fopen("./.env", "w");
+            
+            $keys = array("aws_public_key", "aws_region", "aws_secret_key", 
+            "db_dialect", "db_host", "db_name", "db_password", 
+            "db_user", "version");
+            
+            // Writes the enviorments variables in the file.
+            $configs = json_encode(get_config('block_simplecamera'));
+            error_log($configs);
+            error_log("Televisa presenta");
+            // $configs = str_replace(":", " = ", $configs);
+            // $configs = str_replace(",", "\n", $configs);
+            // $configs = str_replace(array("{", "}", "\""), "", $configs);
+            // $configs = str_replace($keys, $this -> array_to_upper($keys), $configs);
+
+            // fwrite($file, $configs);
+
+            // fclose($file);
+
+        }
     }
 
     public function instance_allow_multiple() {
