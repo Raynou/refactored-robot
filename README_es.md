@@ -9,6 +9,7 @@ Plugin de bloque para Moodle que utiliza el servicio de `Amazon Rekognition` par
             - [Instalación de librerías PHP](#instalación-de-librerías-php)
             - [Instalar Grunt](#instalar-grunt)
       3. [Instalación con Docker](#instalación-con-docker)
+            - [Instalación automática de Moodle](#instalación-automática-de-moodle)
             - [Instalación de librerías PHP en el contenedor](#instalación-de-librerías-php-en-el-contenedor)
             - [Uso de Grunt en el contenedor](#uso-de-grunt-en-el-contenedor)
 
@@ -31,6 +32,8 @@ DB_HOST = your-host
 DB_NAME = moodle # Este es el nombre de la db de Moodle
 DB_USER = your-user
 DB_PASSWORD = your-password
+MOODLE_ADMIN_USER=your-admin-user
+MOODLE_ADMIN_PASS=your-admin-password
 ```
 ## Instalación manual
 
@@ -98,6 +101,17 @@ Una vez termine el proceso de creación de los contenedores, puede acceda a `loc
 
 > [!IMPORTANT]
 > Al momento de ingresar el host de la base de datos, en lugar de colocar `localhost` coloque el nombre del contenedor de la base de datos, que por defecto es `plugindb`.
+
+### Instalación automática de Moodle
+
+```bash
+docker exec -it simplecamera-plugin-1 ./setup.sh
+```
+
+> [!TIP]
+> Este comando también instala las dependencias de PHP en la carpeta del proyecto, por lo que ya no es necesario que las ejecutes manualmente.
+
+Sí este comando llega a fallar, siempre es posible instalar Moodle mediante su instalador web, para ello vaya a `localhost/moodle` en su navegador y rellene los datos que se le solicitan. Recuerde usar el nombre `plugindb` o el nombre que haya elegido para el contenedor de base de datos cuando le pidan el `database host`.
 
 ### Instalación de librerías PHP en el contenedor
 
