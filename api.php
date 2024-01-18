@@ -1,7 +1,7 @@
 <?php
 require_once("./vendor/autoload.php");
 
-header("Conten-Type:application/json");
+header("Content-Type:application/json");
 $method = $_SERVER["REQUEST_METHOD"];
 
 use Stormwind\FaceAnalyzer;
