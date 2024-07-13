@@ -4,9 +4,10 @@
  * @param {canvas} canvas - The canvas where the image will be temporally saved
  * @param {string} title The title of the page where the photo is taken
  * @param {number} userId The id of the user
+ * @param {string} url The API's URL
  * @returns Nothing
  */
-function save_image(video, canvas, title, userId) {
+function save_image(video, canvas, title, userId, url) {
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     const date = new Date();
 
@@ -19,7 +20,6 @@ function save_image(video, canvas, title, userId) {
     };
 
     const time = `${date.getHours()}:${formatMinutes(date.getMinutes())}`;
-    const url = "http://www.localhost/moodle/blocks/simplecamera/api.php";
     const mockBody = {
         photo: canvas.toDataURL(),
         page:  title,
@@ -55,7 +55,7 @@ function pushToLocalStorage(seconds) {
     localStorage.setItem("timeTranscurred", seconds.toString());
 }
 
-export const init = (timer, title, id) => {
+export const init = (timer, title, id, url) => {
     let video = document.querySelector("#camera");
     let canvas = document.querySelector("#canvas");
     let save_button = document.querySelector("#save_button");
@@ -74,7 +74,7 @@ export const init = (timer, title, id) => {
     }
     setInterval(() => {
         if(getFromLocalStorage()  === timer/1000) {
-            save_image(video, canvas, title, id);
+            save_image(video, canvas, title, id, url);
             pushToLocalStorage(0);
         }else {
             const aux = getFromLocalStorage();

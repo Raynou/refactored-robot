@@ -1,6 +1,6 @@
 {
     "require": {
-        "aws-project/stormwind": "dev-dev"
+        "aws-project/stormwind": "dev-main"
     },
     "config": {
         "platform-check": false

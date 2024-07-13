@@ -1,7 +1,16 @@
 <?php
+require_once(__DIR__ . '/../../config.php');
+require_once("./vendor/autoload.php");
+use Dotenv\Dotenv;
+
 class block_simplecamera extends block_base {
     public function init() {
         $this->title = get_string('simplecamera', 'block_simplecamera');
+        $dotenvPath = __DIR__ . '/.env';
+        if(file_exists($dotenvPath)) {
+            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv->load();
+        }
     }
 
     public function get_content() {
@@ -10,7 +19,6 @@ class block_simplecamera extends block_base {
         }
 
         $this->content = new stdClass;
-        // $this->content->text = "The content of our SimpleHTML block!<b>Hello</b>";
         $this->content->text = 
 "<video id='camera' width='320' height='240' autoplay></video><br/>".
 "<canvas id='canvas' width='320' height='240'></canvas>".
@@ -27,10 +35,21 @@ class block_simplecamera extends block_base {
 
         $userid = $USER->id;
         $title = $this->page->title;
+        
+        // Build the API URL
+        if(get_config('block_simplecamera') != null) { // From moodle config
+            $credentials = get_config('block_simplecamera');
+            $url_api = $credentials->base_url;
+            $url_api = $url_api . '/moodle/blocks/simplecamera/api.php';
+        } else { // From enviorment  variables
+            $url_api = $_ENV['BASE_URL'];
+            $url_api = $url_api . '/moodle/blocks/simplecamera/api.php';
+        }
         $this->page->requires->js_call_amd('block_simplecamera/camera', 'init', [
             $cameraperiod,
             $title,
-            $userid
+            $userid,
+            $url_api
         ]);
 
         return $this->content;
@@ -44,36 +63,10 @@ class block_simplecamera extends block_base {
                 $this->title = $this->config->title;
             }
         }
-
-        if(!file_exists("./.env")) {
-
-            // $file = fopen("./.env", "w");
-            
-            $keys = array("aws_public_key", "aws_region", "aws_secret_key", 
-            "db_dialect", "db_host", "db_name", "db_password", 
-            "db_user", "version");
-            
-            // Writes the enviorments variables in the file.
-            $configs = json_encode(get_config('block_simplecamera'));
-            error_log($configs);
-            error_log("Televisa presenta");
-            // $configs = str_replace(":", " = ", $configs);
-            // $configs = str_replace(",", "\n", $configs);
-            // $configs = str_replace(array("{", "}", "\""), "", $configs);
-            // $configs = str_replace($keys, $this -> array_to_upper($keys), $configs);
-
-            // fwrite($file, $configs);
-
-            // fclose($file);
-
-        }
     }
 
     public function instance_allow_multiple() {
       return true;
     }
 
-// public function applicable_formats() {
-//   return array('site-index' => true);
-// }
 }

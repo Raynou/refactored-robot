@@ -1,19 +1,26 @@
 <?php
 require_once("./vendor/autoload.php");
+require_once(__DIR__ . '/../../config.php');
 
 header("Conten-Type:application/json");
 $method = $_SERVER["REQUEST_METHOD"];
 
 use Stormwind\FaceAnalyzer;
 use Stormwind\QueryHandler;
-use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+// Load credentials from moodle config
+if (get_config('block_simplecamera') != null) {
+    $credentials = get_config('block_simplecamera');
+    FaceAnalyzer::setCredentials($credentials);
+}
 
 function insertRecord($record) {
     try {
-        $handler = new QueryHandler();
+        if($credentials == null) {
+            $handler = new QueryHandler($credentials);
+        } else {
+            $handler = new QueryHandler();
+        }
         $handler->insertAnalysis($record);
     }catch(Exception $e) {
         error_log("ERROR: " . $e);
