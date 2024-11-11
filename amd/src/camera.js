@@ -62,7 +62,7 @@ export const init = (timer, title, id) => {
         .catch((error) => window.alert(error));
 
     saveButton.addEventListener("click", () => {
-        saveImage(video, canvas);
+        // Hey! I don't do anything :D!
     });
 
     if (getFromLocalStorage() === null || isNaN(getFromLocalStorage())) {
