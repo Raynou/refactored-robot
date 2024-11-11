@@ -7,7 +7,7 @@
     <TABLE NAME="block_simplecamera_details" COMMENT="Stores user details about the analysis">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="user_id" TYPE="int" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="user_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="timestamp" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="page" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>
