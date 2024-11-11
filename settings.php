@@ -26,8 +26,8 @@
 
 if($ADMIN->fulltree){
 
-    $settings->add(new admin_setting_heading('block_simplecamera', '', 
-    new lang_string('block_simplecameradescription', 'block_simplecamera')));
+    $settings->add(new admin_setting_heading('block_simplecamera/pluginname', '', 
+    new lang_string('simplecameradescription', 'block_simplecamera')));
 
     $settings->add(new admin_setting_configtext('block_simplecamera/aws_region', 'AWS Region', '', '', PARAM_ALPHANUMEXT)); 
     $settings->add(new admin_setting_configtext('block_simplecamera/aws_public_key', 'AWS Public Key', '', '', PARAM_ALPHANUM));

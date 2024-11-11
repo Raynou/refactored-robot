@@ -59,4 +59,7 @@ class block_simplecamera extends block_base {
       return true;
     }
 
+    public function has_config() {
+        return true;
+      }
 }
