@@ -32,9 +32,4 @@ if($ADMIN->fulltree){
     $settings->add(new admin_setting_configtext('block_simplecamera/aws_region', 'AWS Region', '', '', PARAM_ALPHANUMEXT)); 
     $settings->add(new admin_setting_configtext('block_simplecamera/aws_public_key', 'AWS Public Key', '', '', PARAM_ALPHANUM));
     $settings->add(new admin_setting_configtext('block_simplecamera/aws_secret_key', 'AWS Secret Key', '', '', PARAM_TEXT));
-    $settings->add(new admin_setting_configtext('block_simplecamera/db_dialect', 'Database Dialect', '', 'mysql', PARAM_ALPHANUM));
-    $settings->add(new admin_setting_configtext('block_simplecamera/db_host', 'Database host', '', 'localhost', PARAM_LOCALURL));
-    $settings->add(new admin_setting_configtext('block_simplecamera/db_name', 'Database name', '', 'moodle', PARAM_ALPHANUM));
-    $settings->add(new admin_setting_configtext('block_simplecamera/db_user', 'Database username', '', 'root', PARAM_ALPHANUM));
-    $settings->add(new admin_setting_configtext('block_simplecamera/db_password', 'Database password', '', '', PARAM_ALPHANUMEXT));
 }

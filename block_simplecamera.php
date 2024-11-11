@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . '/../../config.php');
-require_once("./vendor/autoload.php");
+require_once(__DIR__ . "/vendor/autoload.php");
 use Dotenv\Dotenv;
 
 class block_simplecamera extends block_base {
@@ -36,20 +36,10 @@ class block_simplecamera extends block_base {
         $userid = $USER->id;
         $title = $this->page->title;
         
-        // Build the API URL
-        if(get_config('block_simplecamera') != null) { // From moodle config
-            $credentials = get_config('block_simplecamera');
-            $url_api = $credentials->base_url;
-            $url_api = $url_api . '/moodle/blocks/simplecamera/api.php';
-        } else { // From enviorment  variables
-            $url_api = $_ENV['BASE_URL'];
-            $url_api = $url_api . '/moodle/blocks/simplecamera/api.php';
-        }
         $this->page->requires->js_call_amd('block_simplecamera/camera', 'init', [
             $cameraperiod,
             $title,
-            $userid,
-            $url_api
+            $userid
         ]);
 
         return $this->content;
